@@ -1,0 +1,1860 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "ahamove Service",
+    "version": "1.0",
+    "title": "ahamove Service",
+    "license": {
+      "name": "N/A"
+    }
+  },
+  "host": "127.0.0.1",
+  "basePath": "/v1/ahamove",
+  "tags": [
+    {
+      "name": "Customer API"
+    },
+    {
+      "name": "H5 API"
+    },
+    {
+      "name": "Admin API"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/health-check": {
+      "get": {
+        "summary": "Health check endpoint",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Server health status",
+            "schema": {
+              "type": "string",
+              "example": "OK"
+            }
+          }
+        }
+      }
+    },
+    "/customer/plan_premium": {
+      "get": {
+        "tags": [
+          "Customer API"
+        ],
+        "summary": "For customer to get the brief insurance plans' premium information",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/PlanPremiumResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/customer/plan_id/{plan_id}": {
+      "get": {
+        "tags": [
+          "Customer API"
+        ],
+        "summary": "For customer to get specific insurance plan information",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/PlanResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/customer/policy/create": {
+      "post": {
+        "tags": [
+          "Customer API"
+        ],
+        "summary": "For customer create a new policy",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "CreatePolicyRequest",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/CreatePolicyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreatePolicyResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/customer/policy/{customer_id}": {
+      "get": {
+        "tags": [
+          "Customer API"
+        ],
+        "summary": "For customer to get his/her current active policy",
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetActivePolicyResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/customer/policy": {
+      "get": {
+        "tags": [
+          "Customer API"
+        ],
+        "summary": "For customer to get his/her policy",
+        "parameters": [
+          {
+            "name": "policy_id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetActivePolicyResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/customer/policy/update": {
+      "put": {
+        "tags": [
+          "Customer API"
+        ],
+        "summary": "For customers to update(Renewal/Change/Cancel) an existing policy or create a new one based on the existing one (using the same customer info provided in create method)",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "UpdatePolicyRequest",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/UpdatePolicyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreatePolicyResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/customer-portal/prefill": {
+      "get": {
+        "tags": [
+          "H5 API"
+        ],
+        "summary": "prefill insured details",
+        "parameters": [
+          {
+            "name": "policy_id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CustomerPrefillResp"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/customer-portal/claim": {
+      "post": {
+        "tags": [
+          "H5 API"
+        ],
+        "summary": "submit claim form",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "CreateClaimRequest",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/CustomerCreateClaimRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateClaimResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/customer-portal/claims": {
+      "get": {
+        "tags": [
+          "H5 API"
+        ],
+        "summary": "get customer's all claims",
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CustomerClaimsList"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/customer-portal/claims/{claim_id}": {
+      "get": {
+        "tags": [
+          "H5 API"
+        ],
+        "summary": "customer can check his/her claim details",
+        "parameters": [
+          {
+            "name": "claim_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CustomerClaimDetail"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/customer-portal/claims/{claim_id}/cancel": {
+      "put": {
+        "tags": [
+          "H5 API"
+        ],
+        "summary": "cancel claim",
+        "parameters": [
+          {
+            "name": "claim_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Simple String Response",
+            "schema": {
+              "type": "string",
+              "example": "OK"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/customer-portal/claims/{claim_id}/read": {
+      "put": {
+        "tags": [
+          "H5 API"
+        ],
+        "summary": "update read status for claim",
+        "parameters": [
+          {
+            "name": "claim_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Simple String Response",
+            "schema": {
+              "type": "string",
+              "example": "OK"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/customer-portal/policies": {
+      "get": {
+        "tags": [
+          "H5 API"
+        ],
+        "summary": "get all policies",
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CustomerPolicies"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/customer/get_token": {
+      "get": {
+        "tags": [
+          "Customer API"
+        ],
+        "summary": "get jwt token for customer when you call up H5 page to claim",
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CustomerToken"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/admin/claims": {
+      "get": {
+        "tags": [
+          "Admin API"
+        ],
+        "summary": "admin get claims list",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "unix timestamp of start date",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "unix timestamp of end date",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 1,
+            "minimum": 1
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 10,
+            "maximum": 30,
+            "minimum": 10
+          },
+          {
+            "name": "claim_status",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Claim Processing",
+                "Claim Approved",
+                "Claim Rejected"
+              ]
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "claim_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "$ref": "#/definitions/AdminClaimListResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/admin/claims/{claim_id}": {
+      "get": {
+        "tags": [
+          "Admin API"
+        ],
+        "summary": "admin claim detail",
+        "parameters": [
+          {
+            "name": "claim_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "$ref": "#/definitions/AdminClaimDetail"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/admin/claims/{claim_id}/approve": {
+      "put": {
+        "tags": [
+          "Admin API"
+        ],
+        "summary": "admin claim approve",
+        "parameters": [
+          {
+            "name": "claim_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "ClaimApproveRequest",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/AdminClaimApproveRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Simple String Response",
+            "schema": {
+              "type": "string",
+              "example": "OK"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/admin/claims/{claim_id}/reject": {
+      "put": {
+        "tags": [
+          "Admin API"
+        ],
+        "summary": "admin claim reject",
+        "parameters": [
+          {
+            "name": "claim_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "ClaimRejectRequest",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/AdminClaimRejectRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Simple String Response",
+            "schema": {
+              "type": "string",
+              "example": "OK"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unknown Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "PlanPremiumResponse": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PlanPremiumObject"
+      }
+    },
+    "PlanPremiumObject": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "type": "integer"
+        },
+        "plan_name": {
+          "type": "string"
+        },
+        "premium_per_month": {
+          "type": "integer"
+        }
+      }
+    },
+    "PlanResponse": {
+      "type": "object",
+      "properties": {
+        "product_name": {
+          "type": "string"
+        },
+        "plan_id": {
+          "type": "integer"
+        },
+        "pay_period": {
+          "type": "string"
+        },
+        "terms_condition_url": {
+          "type": "string"
+        },
+        "plan_name": {
+          "type": "string"
+        },
+        "premium_per_month": {
+          "type": "integer"
+        },
+        "coverages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CoverageObject"
+          }
+        }
+      }
+    },
+    "CoverageObject": {
+      "type": "object",
+      "properties": {
+        "coverage_name": {
+          "type": "string"
+        },
+        "coverage_pay": {
+          "type": "integer"
+        },
+        "h_a_max_day_per_year": {
+          "type": "integer"
+        }
+      }
+    },
+    "CreatePolicyRequest": {
+      "type": "object",
+      "required": [
+        "customer_info",
+        "plan_id"
+      ],
+      "properties": {
+        "plan_id": {
+          "type": "integer"
+        },
+        "customer_info": {
+          "$ref": "#/definitions/CustomerInfoObject"
+        }
+      }
+    },
+    "CustomerInfoObject": {
+      "type": "object",
+      "required": [
+        "address",
+        "customer_id_number",
+        "date_of_birth",
+        "full_name",
+        "phone_number"
+      ],
+      "properties": {
+        "full_name": {
+          "type": "string"
+        },
+        "customer_id_number": {
+          "type": "string"
+        },
+        "date_of_birth": {
+          "type": "string"
+        },
+        "phone_number": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "CreatePolicyResponse": {
+      "type": "object",
+      "properties": {
+        "policy_id": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "Policy Issued",
+            "Policy End",
+            "Policy Cancelled"
+          ]
+        },
+        "start_date": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Period Start Timestamp，precision to millisecond"
+        },
+        "expire_date": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Period Start Timestamp，precision to millisecond"
+        }
+      }
+    },
+    "GetActivePolicyResponse": {
+      "type": "object",
+      "properties": {
+        "customer_id": {
+          "type": "string"
+        },
+        "plan_id": {
+          "type": "string"
+        },
+        "policy_id": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "Policy Issued",
+            "Policy End",
+            "Policy Cancelled"
+          ]
+        },
+        "start_date": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Period Start Timestamp，precision to millisecond"
+        },
+        "expire_date": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Period Expire Timestamp，precision to millisecond"
+        },
+        "coi_no": {
+          "type": "string"
+        },
+        "coi_url": {
+          "type": "string"
+        },
+        "plan_info": {
+          "$ref": "#/definitions/PlanResponse"
+        }
+      }
+    },
+    "UpdatePolicyRequest": {
+      "type": "object",
+      "required": [
+        "customer_id_number",
+        "update_policy_id",
+        "update_type"
+      ],
+      "properties": {
+        "update_type": {
+          "type": "string",
+          "enum": [
+            "Renewal",
+            "Change",
+            "Cancel"
+          ]
+        },
+        "customer_id_number": {
+          "type": "string"
+        },
+        "update_policy_id": {
+          "type": "string"
+        },
+        "plan_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "InternalPolicyStatusChangeRequest": {
+      "type": "object",
+      "properties": {
+        "policy_id": {
+          "type": "integer",
+          "format": "uint64"
+        },
+        "change_at": {
+          "type": "integer"
+        }
+      }
+    },
+    "NotifyExpireRequest": {
+      "type": "object",
+      "properties": {
+        "policy_id": {
+          "type": "string"
+        },
+        "customer_id_number": {
+          "type": "string"
+        }
+      }
+    },
+    "NotifyExpireResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "x-omitempty": false
+        },
+        "message": {
+          "type": "string",
+          "x-omitempty": false
+        }
+      }
+    },
+    "CustomerPrefillResp": {
+      "type": "object",
+      "properties": {
+        "insured_name": {
+          "type": "string"
+        },
+        "birthdate": {
+          "type": "integer",
+          "description": "precision to millisecond"
+        },
+        "id_no": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "policy_start": {
+          "type": "integer"
+        },
+        "policy_end": {
+          "type": "integer"
+        },
+        "has_death_claim": {
+          "type": "boolean",
+          "x-omitempty": false
+        },
+        "has_total_permanent_claim": {
+          "type": "boolean",
+          "x-omitempty": false
+        }
+      }
+    },
+    "CustomerCreateClaimRequest": {
+      "type": "object",
+      "required": [
+        "accident_details",
+        "claim_details",
+        "claimant_details",
+        "insured_details",
+        "payment_details",
+        "policy_id"
+      ],
+      "properties": {
+        "policy_id": {
+          "type": "string"
+        },
+        "insured_details": {
+          "$ref": "#/definitions/CustomerClaimInsuredDetails"
+        },
+        "claimant_details": {
+          "$ref": "#/definitions/CustomerClaimClaimantDetails"
+        },
+        "accident_details": {
+          "$ref": "#/definitions/CustomerClaimAccidentDetails"
+        },
+        "claim_details": {
+          "$ref": "#/definitions/CustomerClaimClaimDetails"
+        },
+        "payment_details": {
+          "$ref": "#/definitions/CustomerClaimPaymentDetails"
+        }
+      }
+    },
+    "CustomerClaimInsuredDetails": {
+      "type": "object",
+      "required": [
+        "address",
+        "birthdate",
+        "id_no",
+        "insured_name",
+        "phone"
+      ],
+      "properties": {
+        "insured_name": {
+          "type": "string"
+        },
+        "birthdate": {
+          "type": "integer",
+          "description": "precision to millisecond"
+        },
+        "id_no": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        }
+      }
+    },
+    "CustomerClaimClaimantDetails": {
+      "type": "object",
+      "required": [
+        "relationship"
+      ],
+      "properties": {
+        "relationship": {
+          "type": "string",
+          "description": "single choice of relationship to the insured",
+          "enum": [
+            "Self",
+            "Spouse",
+            "Parent",
+            "Child",
+            "Others"
+          ]
+        },
+        "claimant_name": {
+          "type": "string"
+        },
+        "id_no": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        }
+      }
+    },
+    "CustomerClaimAccidentDetails": {
+      "type": "object",
+      "required": [
+        "causes",
+        "consequence",
+        "location",
+        "occurrence_date",
+        "risk"
+      ],
+      "properties": {
+        "occurrence_date": {
+          "type": "integer",
+          "description": "precision to millisecond"
+        },
+        "location": {
+          "type": "string",
+          "description": "accident location"
+        },
+        "risk": {
+          "type": "string",
+          "description": "discription of risk"
+        },
+        "causes": {
+          "type": "string",
+          "description": "causes and movements"
+        },
+        "consequence": {
+          "type": "string"
+        }
+      }
+    },
+    "CustomerClaimClaimDetails": {
+      "type": "object",
+      "required": [
+        "claim_documents",
+        "claim_reason"
+      ],
+      "properties": {
+        "claim_reason": {
+          "type": "string",
+          "description": "single choice",
+          "enum": [
+            "Death due to Accident",
+            "Funeral Allowance",
+            "Total Permanent Disablement due to Accident",
+            "Hospitalization Allowance"
+          ]
+        },
+        "claim_documents": {
+          "$ref": "#/definitions/CustomerClaimDocumentObject"
+        }
+      }
+    },
+    "CustomerClaimDocumentObject": {
+      "type": "object",
+      "properties": {
+        "death_certificate": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "police_conclusion": {
+          "type": "array",
+          "description": "conclusion minute of the police",
+          "items": {
+            "type": "string"
+          }
+        },
+        "inheritance": {
+          "type": "array",
+          "description": "documents related to inheritance",
+          "items": {
+            "type": "string"
+          }
+        },
+        "accident_report": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "driver_license": {
+          "type": "array",
+          "description": "driver's license as prescribed by law",
+          "items": {
+            "type": "string"
+          }
+        },
+        "scene": {
+          "type": "array",
+          "description": "minutes of the scene",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attorney": {
+          "type": "array",
+          "description": "power of attorney",
+          "items": {
+            "type": "string"
+          }
+        },
+        "others": {
+          "type": "array",
+          "description": "other documents",
+          "items": {
+            "type": "string"
+          }
+        },
+        "medical_assessment": {
+          "type": "array",
+          "description": "certificate of medical assessment council",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hospital_statement": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "discharge_paper": {
+          "type": "array",
+          "description": "hospital discharge paper or discharge medical report",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "CustomerClaimPaymentDetails": {
+      "type": "object",
+      "required": [
+        "payment_method"
+      ],
+      "properties": {
+        "payment_method": {
+          "type": "string",
+          "enum": [
+            "Cash",
+            "Bank Transfer",
+            "Ahamove E-wallet"
+          ]
+        },
+        "account_name": {
+          "type": "string"
+        },
+        "bank_name": {
+          "type": "string"
+        },
+        "branch_name": {
+          "type": "string"
+        },
+        "account_number": {
+          "type": "string"
+        },
+        "bank_address": {
+          "type": "string"
+        }
+      }
+    },
+    "CustomerClaimsList": {
+      "type": "object",
+      "properties": {
+        "open": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomerClaimListEntry"
+          }
+        },
+        "closed": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomerClaimListEntry"
+          }
+        }
+      }
+    },
+    "CustomerClaimListEntry": {
+      "type": "object",
+      "properties": {
+        "claim_id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "has_new_info": {
+          "type": "boolean",
+          "x-omitempty": false
+        }
+      }
+    },
+    "CustomerClaimDetail": {
+      "type": "object",
+      "properties": {
+        "claim_id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "policy_id": {
+          "type": "string"
+        },
+        "claim_date": {
+          "type": "integer"
+        },
+        "insured_details": {
+          "$ref": "#/definitions/CustomerClaimInsuredDetails"
+        },
+        "claimant_details": {
+          "$ref": "#/definitions/CustomerClaimClaimantDetails"
+        },
+        "accident_details": {
+          "$ref": "#/definitions/CustomerClaimAccidentDetails"
+        },
+        "claim_details": {
+          "$ref": "#/definitions/CustomerClaimClaimDetails"
+        },
+        "payment_details": {
+          "$ref": "#/definitions/CustomerClaimPaymentDetails"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "approved_amount": {
+          "type": "string"
+        },
+        "download_link": {
+          "type": "string"
+        }
+      }
+    },
+    "CustomerPolicies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CustomerPolicyEntry"
+      }
+    },
+    "CustomerPolicyEntry": {
+      "type": "object",
+      "properties": {
+        "policy_id": {
+          "type": "string"
+        },
+        "policy_start": {
+          "type": "integer"
+        },
+        "policy_end": {
+          "type": "integer"
+        },
+        "has_death_claim": {
+          "type": "boolean",
+          "x-omitempty": false
+        },
+        "has_total_permanent_claim": {
+          "type": "boolean",
+          "x-omitempty": false
+        }
+      }
+    },
+    "CustomerClaimDocsDownloadLink": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateClaimResponse": {
+      "type": "object",
+      "properties": {
+        "claim_id": {
+          "type": "string"
+        },
+        "download_link": {
+          "type": "string"
+        }
+      }
+    },
+    "CustomerToken": {
+      "type": "object",
+      "properties": {
+        "customer_token": {
+          "type": "string"
+        }
+      }
+    },
+    "AdminClaimListResponse": {
+      "type": "object",
+      "properties": {
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdminClaimListRecord"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "description": "records total"
+        }
+      }
+    },
+    "AdminClaimListRecord": {
+      "type": "object",
+      "properties": {
+        "claim_id": {
+          "type": "string"
+        },
+        "coi_no": {
+          "type": "string"
+        },
+        "insurance_program": {
+          "type": "string"
+        },
+        "claim_file_date": {
+          "type": "integer"
+        },
+        "update_date": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "AdminClaimDetail": {
+      "type": "object",
+      "properties": {
+        "claim_id": {
+          "type": "string"
+        },
+        "insurance_program": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "insured_details": {
+          "$ref": "#/definitions/CustomerClaimInsuredDetails"
+        },
+        "claimant_details": {
+          "$ref": "#/definitions/CustomerClaimClaimantDetails"
+        },
+        "accident_details": {
+          "$ref": "#/definitions/CustomerClaimAccidentDetails"
+        },
+        "claim_details": {
+          "$ref": "#/definitions/CustomerClaimClaimDetails"
+        },
+        "payment_details": {
+          "$ref": "#/definitions/CustomerClaimPaymentDetails"
+        },
+        "claim_docs": {
+          "$ref": "#/definitions/CustomerClaimDocumentObject"
+        },
+        "approved_amount": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        }
+      }
+    },
+    "AdminClaimApproveRequest": {
+      "type": "object",
+      "required": [
+        "approved_amount"
+      ],
+      "properties": {
+        "approved_amount": {
+          "type": "string"
+        }
+      }
+    },
+    "AdminClaimRejectRequest": {
+      "type": "object",
+      "required": [
+        "comment"
+      ],
+      "properties": {
+        "comment": {
+          "type": "string"
+        }
+      }
+    },
+    "GetAdminClaimsRequest": {
+      "type": "object",
+      "properties": {
+        "claim_id": {
+          "type": "string",
+          "x-go-custom-tag": "query:\"claim_id\""
+        },
+        "claim_status": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Claim Processing",
+              "Claim Approved",
+              "Claim Rejected"
+            ]
+          },
+          "x-go-custom-tag": "query:\"claim_status\""
+        },
+        "start_date": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-custom-tag": "query:\"start_date\""
+        },
+        "end_date": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-custom-tag": "query:\"end_date\""
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1,
+          "x-go-custom-tag": "query:\"page\""
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 30,
+          "x-go-custom-tag": "query:\"size\""
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "A short string with a brief explanation of the error"
+        },
+        "message": {
+          "type": "string",
+          "description": "Detailed description of the error"
+        }
+      }
+    },
+    "PaginatedRequestBase": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "x-go-custom-tag": "validate:\"omitempty,min=1\" schema:\"_page\"",
+          "x-isnullable": true
+        },
+        "pageSize": {
+          "type": "integer",
+          "x-go-custom-tag": "validate:\"omitempty,min=1\" schema:\"_limit\"",
+          "x-isnullable": true
+        },
+        "all": {
+          "type": "boolean",
+          "x-go-custom-tag": "validate:\"omitempty\" schema:\"_all\"",
+          "x-isnullable": true
+        }
+      }
+    },
+    "Pagination": {
+      "type": "object",
+      "properties": {
+        "TotalCount": {
+          "type": "integer",
+          "x-go-custom-tag": "header:\"X-Total-Count\""
+        },
+        "Next": {
+          "type": "string"
+        },
+        "Previous": {
+          "type": "string"
+        }
+      }
+    },
+    "PaginatedResponseBase": {
+      "type": "object",
+      "properties": {
+        "pagination": {
+          "$ref": "#/definitions/Pagination"
+        }
+      }
+    }
+  },
+  "parameters": {
+    "AdminDateLowerFilterParam": {
+      "name": "start_date",
+      "in": "query",
+      "description": "unix timestamp of start date",
+      "required": false,
+      "type": "integer",
+      "format": "int64"
+    },
+    "AdminDateUpperFilterParam": {
+      "name": "end_date",
+      "in": "query",
+      "description": "unix timestamp of end date",
+      "required": false,
+      "type": "integer",
+      "format": "int64"
+    },
+    "AdminPageParam": {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "type": "integer",
+      "default": 1,
+      "minimum": 1
+    },
+    "AdminPageSizeParam": {
+      "name": "size",
+      "in": "query",
+      "required": false,
+      "type": "integer",
+      "default": 10,
+      "maximum": 30,
+      "minimum": 10
+    },
+    "AdminClaimIDFilterParam": {
+      "name": "claim_id",
+      "in": "query",
+      "required": false,
+      "type": "string"
+    },
+    "AdminClaimStatusFilterParam": {
+      "name": "claim_status",
+      "in": "query",
+      "required": false,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Claim Processing",
+          "Claim Approved",
+          "Claim Rejected"
+        ]
+      },
+      "collectionFormat": "multi"
+    }
+  },
+  "responses": {
+    "errBadRequestResponse": {
+      "description": "Bad Request",
+      "schema": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "errUnauthorizedResponse": {
+      "description": "Unauthorized",
+      "schema": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "errRequestFailedResponse": {
+      "description": "Request Failed",
+      "schema": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "errForbiddenResponse": {
+      "description": "Forbidden",
+      "schema": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "errNotFoundResponse": {
+      "description": "Not found",
+      "schema": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "errConflictResponse": {
+      "description": "Conflict",
+      "schema": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "errTooManyRequestsResponse": {
+      "description": "Too Many Requests",
+      "schema": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "errServerErrorsResponse": {
+      "description": "Server Errors",
+      "schema": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "defaultErrorResponse": {
+      "description": "Unknown Error",
+      "schema": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "healthCheckResponse": {
+      "description": "Server health status",
+      "schema": {
+        "type": "string",
+        "example": "OK"
+      }
+    },
+    "simpleStringResponse": {
+      "description": "Simple String Response",
+      "schema": {
+        "type": "string",
+        "example": "OK"
+      }
+    }
+  }
+}
